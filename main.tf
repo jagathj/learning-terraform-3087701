@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = [var.ammi_filter.name]
+    values = [var.ami_filter.name]
   }
 
   filter {
@@ -11,7 +11,7 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = [var.ammi_filter.owner] 
+  owners = [var.ami_filter.owner] 
 }
 
 module "blog_vpc" {
@@ -50,8 +50,6 @@ module "blog_alb" {
   subnets = module.blog_vpc.public_subnets
 
   security_groups = [module.blog_sg.security_group_id]
-
-  deletion_protection_enabled = false
 
   listeners = {
     blog-http = {
